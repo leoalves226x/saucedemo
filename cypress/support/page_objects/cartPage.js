@@ -1,4 +1,4 @@
-export class Carrinho {
+export class Cart {
 
     RemoverCarrinho() {
 
@@ -29,4 +29,4 @@ export class Carrinho {
     }
 }
 
-export const NaTelaDeCarrinho = new Carrinho()
+export const NaTelaDeCarrinho = new Cart ()

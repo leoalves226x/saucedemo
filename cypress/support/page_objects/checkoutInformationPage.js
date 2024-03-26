@@ -1,4 +1,4 @@
-export class NavigationPage {
+export class CheckoutInformation {
 
     ChecarCampos() { //insere dados e verifica se os campos estão com os dados digitados
 
@@ -11,4 +11,4 @@ export class NavigationPage {
     }
 }
 
-export const NaTelaDeCheckoutInformation = new NavigationPage()
+export const NaTelaDeCheckoutInformation = new CheckoutInformation ()

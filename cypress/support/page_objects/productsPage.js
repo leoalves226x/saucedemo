@@ -41,7 +41,7 @@ function OrdernarPor(type) {
 }
 
 
-export class Produtos {
+export class Products {
 
     OrdenarProdutos() {
 
@@ -75,4 +75,4 @@ export class Produtos {
     }
 }
 
-export const NaTelaDeProdutos = new Produtos()
+export const NaTelaDeProdutos = new Products()

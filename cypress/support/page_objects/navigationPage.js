@@ -1,4 +1,4 @@
-export class NavigationPage {
+export class Navigation {
     
     TelaLogin() { //vai a tela de login
         cy.visit('https://www.saucedemo.com/')
@@ -21,4 +21,4 @@ export class NavigationPage {
     }
 }
 
-export const irPara = new NavigationPage()
+export const irPara = new Navigation()
