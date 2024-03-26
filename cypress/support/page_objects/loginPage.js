@@ -8,7 +8,6 @@ export class Login {
             cy.get('form').submit()
             cy.get('span.title').should('contain', 'Products')
         }
-        
         else { //login inválido
             cy.get('[data-test="username"]').clear().type(usuario)
             cy.get('[data-test="password"]').clear().type(senha)
