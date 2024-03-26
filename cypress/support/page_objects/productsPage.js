@@ -55,21 +55,20 @@ export class Produtos {
 
         const ListaItens = []
         var ItemCount = 0;
-        cy.get('body div').find('[class="inventory_item"]').each(($els) => {
+        cy.get('body div').find('[class="inventory_item"]').each(($els) => { //adiciona todos os itens ao carrinho
 
             cy.wrap($els).find('button', '[class="btn_primary btn_inventory"]').click()
 
         }).then(($els) => {
 
-            cy.get('div.inventory_item_name').each(($els) => {
-                ListaItens.push($els.text())
+            cy.get('div.inventory_item_name').each(($els) => { //joga os itens em um array
+                ListaItens.push($els.text())     
             })
+            cy.writeFile('cypress/fixtures/productsName.json', ListaItens) //grava os itens do array em um json para assertion futura
 
-            cy.writeFile('cypress/fixtures/productsName.json', ListaItens)
+            ItemCount = Cypress.$($els).length; //grava quantos elementos existem
 
-            ItemCount = Cypress.$($els).length;
-
-            cy.get('.shopping_cart_badge').invoke('text').then(text => +text).then(value => {
+            cy.get('.shopping_cart_badge').invoke('text').then(text => +text).then(value => { //compara a quantidade de elementos com a badge do carrinho
                 expect(value).to.be.equal(ItemCount)
             })
         })

@@ -7,30 +7,31 @@ import { NaTelaDeCheckoutOverview } from "../support/page_objects/checkoutOvervi
 
 describe('Testes', () => {
 
+    before ('Login', () =>{
+        irPara.TelaLogin() //vai até o endereço do website
+    })
+
     it('Testes Login', () => {
-        irPara.TelaLogin() //vai até a tela de login
-        NaTelaDeLogin.Login('1', '1')  //login invalido
-        NaTelaDeLogin.Login('standard_user', 'secret_sauce') //login valido
+        NaTelaDeLogin.LoginUsuario('1', '1')  //CT001.001-Login com usuário ou senha inválido
+        NaTelaDeLogin.LoginUsuario('standard_user', 'secret_sauce') //CT001.002-Login com usuário e senha válidos
     })
 
     it('Testes Produtos', () => {
-        NaTelaDeProdutos.OrdenarProdutos() //ordena os produtos e verifica se a ordem está correta
-        NaTelaDeProdutos.AdicionarProduto() //adiciona produtos e verifica se quantidade está correta
-        irPara.TelaCarrinho() //vai até a tela de carrinho 
+        NaTelaDeProdutos.OrdenarProdutos() //CT002.001-Ordenar produtos
+        NaTelaDeProdutos.AdicionarProduto() //CT002.002-Adicionar produtos ao carrinho
+        irPara.TelaCarrinho() //CT002.003-Ir para tela do carrinho
     })
 
     it('Testes Carrinho', () => {
-        NaTelaDeCarrinho.RemoverCarrinho()  //remove um produto e verifica se a quantidade está correta
-        irPara.TelaCheckoutInformation()  //vai até a tela de checkout information
+        NaTelaDeCarrinho.RemoverCarrinho()  //CT003.001-Remover produtos do carrinho
+        irPara.TelaCheckoutInformation()  //CT003.002-Ir para Checkout
     })
 
     it('Testes Checkout Information', () => {
-        NaTelaDeCheckoutInformation.CheckoutFields() //preenche os campos e verifica se estão preenchidos
-        irPara.TelaCheckoutOverview() //vai até a tela de checkout overview
+        NaTelaDeCheckoutInformation.ChecarCampos() //CT004.001-Continuar
     })
 
     it('Testes Checkout Overview', () => {
-        NaTelaDeCheckoutOverview.CheckoutAssertions()//assertions
-        NaTelaDeCheckoutOverview.CheckoutFinish() //finaliza o pedido
+        NaTelaDeCheckoutOverview.CheckoutFinish() //CT004.002-Finalizar compra
     })
 })
