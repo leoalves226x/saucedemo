@@ -5,33 +5,75 @@ import { NaTelaDeCarrinho } from "../support/page_objects/cartPage"
 import { NaTelaDeCheckoutInformation } from "../support/page_objects/checkoutInformationPage"
 import { NaTelaDeCheckoutOverview } from "../support/page_objects/checkoutOverviewPage"
 
-describe('Testes', () => {
+describe('CT001 - Funcionalidade de Login', () => {
 
-    before ('Login', () =>{
-        irPara.TelaLogin() //vai até o endereço do website
+    beforeEach(() => {
+        irPara.TelaLogin()
     })
 
-    it('Testes Login', () => {
-        NaTelaDeLogin.LoginUsuario('1', '1')  //CT001.001-Login com usuário ou senha inválido
-        NaTelaDeLogin.LoginUsuario('standard_user', 'secret_sauce') //CT001.002-Login com usuário e senha válidos
+    it('CT001.001 - Login com usuário ou senha inválido', () => {
+        NaTelaDeLogin.LoginInvalido('1', '1')
     })
 
-    it('Testes Produtos', () => {
-        NaTelaDeProdutos.OrdenarProdutos() //CT002.001-Ordenar produtos
-        NaTelaDeProdutos.AdicionarProduto() //CT002.002-Adicionar produtos ao carrinho
-        irPara.TelaCarrinho() //CT002.003-Ir para tela do carrinho
+    it('CT001.002 - Login com usuário e senha válidos', () => {
+        NaTelaDeLogin.LoginValido('standard_user', 'secret_sauce')
+    })
+})
+
+describe('CT002 - Funcionalidade de Produtos', () => {
+
+    beforeEach(() => {
+        irPara.TelaLogin()
+        NaTelaDeLogin.LoginValido('standard_user', 'secret_sauce')
     })
 
-    it('Testes Carrinho', () => {
-        NaTelaDeCarrinho.RemoverCarrinho()  //CT003.001-Remover produtos do carrinho
-        irPara.TelaCheckoutInformation()  //CT003.002-Ir para Checkout
+    it('CT002.001 - Ordenar produtos', () => {
+        NaTelaDeProdutos.OrdenarProdutos()
     })
 
-    it('Testes Checkout Information', () => {
-        NaTelaDeCheckoutInformation.ChecarCampos() //CT004.001-Continuar
+    it('CT002.002 - Adicionar produto ao carrinho', () => {
+        NaTelaDeProdutos.AdicionarProduto()
     })
 
-    it('Testes Checkout Overview', () => {
-        NaTelaDeCheckoutOverview.CheckoutFinish() //CT004.002-Finalizar compra
+    it('CT002.003 - Ir para tela do carrinho', () => {
+        irPara.TelaCarrinho()
+    })
+})
+
+describe('CT003 - Funcionalidade de Carrinho', () => {
+
+    beforeEach(() => {
+        irPara.TelaLogin()
+        NaTelaDeLogin.LoginValido('standard_user', 'secret_sauce')
+        NaTelaDeProdutos.AdicionarProduto()
+        irPara.TelaCarrinho()
+    })
+
+    it('CT003.001 - Remover produto do carrinho', () => {
+        NaTelaDeCarrinho.RemoverCarrinho()
+    })
+
+    it('CT003.002 - Ir para tela de Checkout', () => {
+        irPara.TelaCheckoutInformation()
+    })
+})
+
+describe('CT004 - Funcionalidade de Checkout', () => {
+
+    beforeEach(() => {
+        irPara.TelaLogin()
+        NaTelaDeLogin.LoginValido('standard_user', 'secret_sauce')
+        NaTelaDeProdutos.AdicionarProduto()
+        irPara.TelaCarrinho()
+        irPara.TelaCheckoutInformation()
+    })
+
+    it('CT004.001 - Preencher campos e continuar', () => {
+        NaTelaDeCheckoutInformation.ChecarCampos()
+    })
+
+    it('CT004.002 - Finalizar compra', () => {
+        NaTelaDeCheckoutInformation.ChecarCampos()
+        NaTelaDeCheckoutOverview.CheckoutFinish()
     })
 })

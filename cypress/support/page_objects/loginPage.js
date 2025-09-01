@@ -1,19 +1,38 @@
 export class Login {
 
-    LoginUsuario(usuario, senha) {
+    LoginValido(usuario, senha) {
 
-        if (usuario == 'standard_user' && senha == 'secret_sauce') { //login valido
-            cy.get('[data-test="username"]').clear().type(usuario)
-            cy.get('[data-test="password"]').clear().type(senha)
+            cy.get('[data-test="username"]')
+            .clear()
+            .type(usuario)
+
+            cy.get('[data-test="password"]')
+            .clear()
+            .type(senha)
+            
             cy.get('form').submit()
-            cy.get('span.title').should('contain', 'Products')
-        }
-        else { //login inválido
-            cy.get('[data-test="username"]').clear().type(usuario)
-            cy.get('[data-test="password"]').clear().type(senha)
+            
+            cy.get('span.title')
+            .should('be.visible')
+            .and('contain', 'Products')
+    }
+
+    LoginInvalido(usuario, senha) { //login invalido
+            
+            cy.get('[data-test="username"]')
+            .clear()
+            .type(usuario)
+
+            cy.get('[data-test="password"]')
+            .clear()
+            .type(senha)
+
             cy.get('form').submit()
-            cy.get('form div').should('have.class', 'error-message-container error')
-        }
+            
+            cy.get('.error-message-container')
+            .should('exist')
+            .and('have.class', 'error-message-container error')
+            .and('be.visible')
     }
 }
 
